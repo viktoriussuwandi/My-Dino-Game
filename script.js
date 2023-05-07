@@ -1,5 +1,6 @@
 import Player from "./controller/player.js"
 import Ground from "./controller/ground.js"
+import Cacti  from "./controller/cacti.js"
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -16,6 +17,11 @@ const MIN_JUMP_HEIGHT = 150;
 const GROUND_WIDTH    = 2400;
 const GROUND_HEIGHT   = 24;
 const GROUND_AND_CACTUS_SPEED = 0.5;
+const CACTI_CONFIG = [
+  { width:48/1.5, height:100/1.5, images:"images/cactus_1.png" },
+  { width:98/1.5, height:100/1.5, images:"images/cactus_2.png" },
+  { width:68/1.5, height:78/1.5, images:"images/cactus_3.png" },
+];
 
 //Objects
 let player        = null;
