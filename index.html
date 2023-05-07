@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>My Dino Game</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <style>
+    *{
+      padding: 0px;
+      margin: 0px;
+    }
+    body{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+
+      user-select: none;
+      touch-action:none;
+      -webkit-user-select: none;
+      -khtml-user-modify: none;
+      -moz-user-select: none;
+      -ms-user-select:none;
+      user-select: none;
+      outline: none;
+      -webkit-tap-highlight-color: rgba(255,255,255,0);
+      
+    }
+    canvas{
+      border: 0.1px solid grey;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="game">
+    
+  </canvas>
+
+  <script src="script.js" defer type="module"></script>
+  
+</body>
+
+</html>
