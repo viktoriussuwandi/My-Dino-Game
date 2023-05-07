@@ -1,4 +1,5 @@
-import Player from "./player.js"
+import Player from "./controller/player.js"
+
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -10,6 +11,7 @@ const PLAYER_HEIGHT = 94/1.5;
 const MAX_JUMP_HEIGHT = GAME_HEIGHT;
 const MIN_JUMP_HEIGHT = 150;
 
+//Objects
 let player        = null;
 let scaleRatio    = null;
 let previousTime  = null;
@@ -19,7 +21,8 @@ function createSprites() {
   const playerHeightInGame  = PLAYER_HEIGHT * scaleRatio;
   const minJumpHeightInGame = MIN_JUMP_HEIGHT * scaleRatio;
   const maxJumpHeightInGame = MAX_JUMP_HEIGHT * scaleRatio;
-  
+
+  player = new Player(ctx,playerWidthInGame,playerHeightInGame,minJumpHeightInGame,maxJumpHeightInGame,scaleRatio)
 }
 
 function setScreen() {
@@ -58,6 +61,13 @@ function gameLoop(currentTime) {
   const frameTimeDelta = currentTime - previousTime;
   previousTime - currentTime
   clearScreen();
+
+  //update game objects
+  player.draw()
+  
+  //draw game objects
+
+  
   requestAnimationFrame(gameLoop);
   
 }
