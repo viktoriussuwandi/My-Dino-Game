@@ -4,6 +4,9 @@ import Ground from "./controller/ground.js"
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
+const GAME_SPEED_START     = 0.75
+const GAME_SPEED_INCREMENT = 0.000001;
+
 const GAME_WIDTH      = 800;
 const GAME_HEIGHT     = 200;
 const PLAYER_WIDTH    = 88/1.5;
@@ -14,13 +17,12 @@ const GROUND_WIDTH    = 2400;
 const GROUND_HEIGHT   = 24;
 const GROUND_AND_CACTUS_SPEED = 0.5;
 
-
-
 //Objects
 let player        = null;
 let ground        = null;
 let scaleRatio    = null;
 let previousTime  = null;
+let gameSpeed     = GAME_SPEED_START;
 
 
 function createSprites() {
@@ -29,14 +31,14 @@ function createSprites() {
   const minJumpHeightInGame = MIN_JUMP_HEIGHT * scaleRatio;
   const maxJumpHeightInGame = MAX_JUMP_HEIGHT * scaleRatio;
 
-  const groundWidthInGame = GROUND_WIDTH * scaleRatio;
+  const groundWidthInGame  = GROUND_WIDTH * scaleRatio;
   const groundHeightInGame = GROUND_HEIGHT * scaleRatio;
   
-  player = new Player(ctx,playerWidthInGame,playerHeightInGame,minJumpHeightInGame,maxJumpHeightInGame,scaleRatio)
-
+  player = new Player(ctx,playerWidthInGame,playerHeightInGame,minJumpHeightInGame,maxJumpHeightInGame,scaleRatio);
+  
   ground = new Ground(
-      ctx, groundWidthInGame,groundHeightInGame,GROUND_AND_CACTUS_SPEED,scaleRatio
-  )
+    ctx, groundWidthInGame, groundHeightInGame, GROUND_AND_CACTUS_SPEED, scaleRatio
+  );
   
 }
 
@@ -74,11 +76,13 @@ function gameLoop(currentTime) {
   }
   
   const frameTimeDelta = currentTime - previousTime;
-  previousTime - currentTime
+  previousTime = currentTime
   clearScreen();
 
   //update game objects
-
+  ground.update(gameSpeed, frameTimeDelta);
+  
+  
   //draw game objects
   player.draw()
   ground.draw()
