@@ -1,6 +1,7 @@
 import Player from "./controller/player.js";
 import Ground from "./controller/ground.js";
 import Cacti  from "./controller/cacti.js";
+import Score  from "./controller/score.js";
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -27,6 +28,7 @@ const CACTI_CONFIG = [
 let player = null;
 let ground = null;
 let cacti  = null;
+let score  = null;
 
 let scaleRatio   = null;
 let previousTime = null;
@@ -60,6 +62,7 @@ function createSprites() {
   });
   
   cacti = new Cacti(ctx, cactiImages, scaleRatio, GROUND_AND_CACTUS_SPEED);
+  score = new Score(ctx, scaleRatio);
   
 }
 
@@ -90,6 +93,7 @@ function reset() {
   waitingToStart = false;
   ground.reset();
   cacti.reset();
+  score.reset();
   gameSpeed = GAME_SPEED_START;
 
 }
@@ -136,8 +140,6 @@ function setupGameReset() {
 }
 
 function gameLoop(currentTime) {
-
-  console.log(gameSpeed);
   
   if(previousTime == null) {
     previousTime = currentTime;
@@ -155,6 +157,7 @@ function gameLoop(currentTime) {
     ground.update(gameSpeed, frameTimeDelta);
     cacti.update(gameSpeed, frameTimeDelta);
     player.update(gameSpeed, frameTimeDelta);
+    score.update(frameTimeDelta);
     UpdateGameSpeed(frameTimeDelta);
 
   }
@@ -162,12 +165,15 @@ function gameLoop(currentTime) {
   if ( !gameOver && cacti.collideWith(player) ) {
     gameOver = true;
     setupGameReset();
+    score.setHighScore();
+    
   }
   
   //draw game objects
   ground.draw();
   cacti.draw();
   player.draw();
+  score.draw();
 
   if ( gameOver ) {
     showGameOver();
