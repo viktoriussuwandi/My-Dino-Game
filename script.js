@@ -32,7 +32,7 @@ let scaleRatio   = null;
 let previousTime = null;
 let gameSpeed    = GAME_SPEED_START;
 let gameOver     = false;  
-
+let hasAddedEventListenersForRestart = false;
 
 function createSprites() {
   const playerWidthInGame   = PLAYER_WIDTH * scaleRatio;
@@ -81,6 +81,14 @@ function getScaleRatio() {
   return (window_is_wider ? (screenWidth/GAME_WIDTH) : (screenHeight/GAME_HEIGHT))
 }
 
+function reset() {
+  hasAddedEventListenersForRestart = false;
+  gameOver = false;
+  ground.reset();
+  cacti.reset();
+  gameSpeed = GAME_SPEED_START;
+}
+
 function clearScreen() {
   ctx.fillStyle = "white";
   ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -98,6 +106,16 @@ function showGameOver() {
   
 }
 
+function setupGameReset() {
+  if(!hasAddedEventListenersForRestart) {
+    hasAddedEventListenersForRestart = true;
+    
+    setTimeout( ()=> {
+      window.addEventListener("keyup", reset, { once: true });
+      window.addEventListener("touchstart", reset, { once: true });
+    }, 10);
+  }
+}
 
 function gameLoop(currentTime) {
   

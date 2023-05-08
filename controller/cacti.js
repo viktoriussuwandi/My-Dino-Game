@@ -57,5 +57,7 @@ export default class Cacti {
   draw() { this.cacti.forEach( (cactus) => cactus.draw() ); }
 
   collideWith(sprite) { return this.cacti.some((cactus) => cactus.collideWith(sprite)); }
+
+  reset() { this.cacti = [] }
   
 }

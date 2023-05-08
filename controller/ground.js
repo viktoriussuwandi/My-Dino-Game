@@ -29,8 +29,6 @@ export default class Ground {
     
   }
   
-  reset() {
-    this.x = 0;
-  }
+  reset() { this.x = 0; }
   
 }
