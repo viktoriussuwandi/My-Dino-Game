@@ -28,9 +28,10 @@ let player = null;
 let ground = null;
 let cacti  = null;
 
-let scaleRatio      = null;
-let previousTime    = null;
-let gameSpeed       = GAME_SPEED_START;
+let scaleRatio   = null;
+let previousTime = null;
+let gameSpeed    = GAME_SPEED_START;
+let gameOver     = false;  
 
 
 function createSprites() {
@@ -47,10 +48,10 @@ function createSprites() {
   ground = new Ground(ctx, groundWidthInGame, groundHeightInGame, GROUND_AND_CACTUS_SPEED, scaleRatio);
 
   const cactiImages = CACTI_CONFIG.map( cactus => {
-    const image = new Image();
-    image.src = cactus.image;
+    const img = new Image();
+    img.src = cactus.image;
     return {
-      image  : image,
+      image  : img,
       width  : cactus.width  * scaleRatio,
       height : cactus.height * scaleRatio,
     }
@@ -87,6 +88,7 @@ function clearScreen() {
 }
 
 function gameLoop(currentTime) {
+  
   if(previousTime == null) {
     previousTime = currentTime;
     requestAnimationFrame(gameLoop);
@@ -96,17 +98,25 @@ function gameLoop(currentTime) {
   const frameTimeDelta = currentTime - previousTime;
   previousTime = currentTime
   clearScreen();
+  
+  if( !gameOver ) {
+    
+    //update game objects
+    ground.update(gameSpeed, frameTimeDelta);
+    cacti.update(gameSpeed, frameTimeDelta);
+    player.update(gameSpeed, frameTimeDelta);
 
-  //update game objects
-  ground.update(gameSpeed, frameTimeDelta);
-  cacti.update(gameSpeed, frameTimeDelta);
-  player.update(gameSpeed, frameTimeDelta);
-  
+  }
   //draw game objects
-  player.draw();
-  cacti.draw();
   ground.draw();
+  cacti.draw();
+  player.draw();
+
   
+  if ( !gameOver && cacti.collideWith(player) ) {
+    gameOver = true;
+  }
+
   requestAnimationFrame(gameLoop);
   
 }

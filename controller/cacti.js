@@ -45,15 +45,17 @@ export default class Cacti {
       this.setNextCactusTime();
     }
     this.nextCactusInterval -= frameTimeDelta;
-
+    
     this.cacti.forEach((cactus) => {
       cactus.update(this.speed, gameSpeed, frameTimeDelta, this.scaleRatio);
     });
     
+    this.cacti = this.cacti.filter( (cactus) => cactus.x > -cactus.width);
+    
   }
 
-  draw() {
-    this.cacti.forEach((cactus) => cactus.draw());
-  }
+  draw() { this.cacti.forEach( (cactus) => cactus.draw() ); }
+
+  collideWith(sprite) { return this.cacti.some((cactus) => cactus.collideWith(sprite)); }
   
 }
