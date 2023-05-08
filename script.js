@@ -87,6 +87,18 @@ function clearScreen() {
   
 }
 
+function showGameOver() {
+  
+  const fontSize = 70 * scaleRatio;
+  ctx.font = `${fontSize}px Verdana`;
+  ctx.fillStyle = "grey";
+  const x = canvas.width / 4.5;
+  const y = canvas.height / 2;
+  ctx.fillText("GAME OVER", x, y);
+  
+}
+
+
 function gameLoop(currentTime) {
   
   if(previousTime == null) {
@@ -107,16 +119,21 @@ function gameLoop(currentTime) {
     player.update(gameSpeed, frameTimeDelta);
 
   }
+
+  if ( !gameOver && cacti.collideWith(player) ) {
+    gameOver = true;
+    setupGameReset();
+  }
+  
   //draw game objects
   ground.draw();
   cacti.draw();
   player.draw();
 
-  
-  if ( !gameOver && cacti.collideWith(player) ) {
-    gameOver = true;
+  if ( gameOver ) {
+    showGameOver();
   }
-
+  
   requestAnimationFrame(gameLoop);
   
 }
