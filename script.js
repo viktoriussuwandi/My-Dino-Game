@@ -103,6 +103,10 @@ function showStartGameText() {
   ctx.fillText("Press Space or Touch screen to Start", x, y);
 }
 
+function UpdateGameSpeed(frameTimeDelta) {
+  gameSpeed += frameTimeDelta * GAME_SPEED_INCREMENT;
+}
+
 function clearScreen() {
   ctx.fillStyle = "white";
   ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -132,6 +136,8 @@ function setupGameReset() {
 }
 
 function gameLoop(currentTime) {
+
+  console.log(gameSpeed);
   
   if(previousTime == null) {
     previousTime = currentTime;
@@ -149,6 +155,7 @@ function gameLoop(currentTime) {
     ground.update(gameSpeed, frameTimeDelta);
     cacti.update(gameSpeed, frameTimeDelta);
     player.update(gameSpeed, frameTimeDelta);
+    UpdateGameSpeed(frameTimeDelta);
 
   }
 
