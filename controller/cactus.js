@@ -10,4 +10,12 @@ export default class Cactus{
     
   }
   
+  update(speed, gameSpeed, frameTimeDelta, scaleRatio) {
+    this.x -= speed * gameSpeed * frameTimeDelta * scaleRatio;
+  }
+
+  draw() {
+    this.ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+  }
+  
 }

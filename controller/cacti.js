@@ -1,6 +1,6 @@
-import Cactus  from "./cactus.js";
+import Cactus from "./cactus.js";
 
-export default class Cacti{
+export default class Cacti {
 
   CACTUS_INTERVAL_MIN = 500;
   CACTUS_INTERVAL_MAX = 2000;
@@ -20,8 +20,8 @@ export default class Cacti{
   }
 
   setNextCactusTime() {
-    const num = this.getRandomNumber(this.CACTUS_INTERVAL_MIN, this.CACTUS_INTERVAL_MAX);
-    this.nextCactusInterval = num;
+    const numRandom = this.getRandomNumber(this.CACTUS_INTERVAL_MIN, this.CACTUS_INTERVAL_MAX);
+    this.nextCactusInterval = numRandom;
   }
   
   getRandomNumber(min,max) {
@@ -29,25 +29,31 @@ export default class Cacti{
   }
 
   createCactus() {
-    const index = this.getRandomNumber( 0, this.cactiImages.length - 1);
-    const cactusImage = this.cactiImages[ index ];
+    
+    const index = this.getRandomNumber(0, this.cactiImages.length - 1);
+    const cactusImage = this.cactiImages[index];
     const x = this.canvas.width * 1.5;
     const y = this.canvas.height - cactusImage.height;
-    const cactus = new Cactus(this.ctx, x, y, cactusImage.width, cactusImage.height, cactusImage.image);
+    const cactus = new Cactus( this.ctx, x, y, cactusImage.width, cactusImage.height, cactusImage.image );
+    this.cacti.push(cactus);
     
   }
-  
+
   update(gameSpeed, frameTimeDelta) {
-    if (this.nextCactusInterval <= 0) { 
+    if (this.nextCactusInterval <= 0) {
       this.createCactus();
-      this.setNextCactusTime(); 
+      this.setNextCactusTime();
     }
     this.nextCactusInterval -= frameTimeDelta;
+
+    this.cacti.forEach((cactus) => {
+      cactus.update(this.speed, gameSpeed, frameTimeDelta, this.scaleRatio);
+    });
     
   }
-  
+
   draw() {
-    
+    this.cacti.forEach((cactus) => cactus.draw());
   }
   
 }

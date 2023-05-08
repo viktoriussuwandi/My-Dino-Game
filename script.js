@@ -18,15 +18,15 @@ const GROUND_WIDTH    = 2400;
 const GROUND_HEIGHT   = 24;
 const GROUND_AND_CACTUS_SPEED = 0.5;
 const CACTI_CONFIG = [
-  { width : 48/1.5, height : 100/1.5, images : "images/cactus_1.png" },
-  { width : 98/1.5, height : 100/1.5, images : "images/cactus_2.png" },
-  { width : 68/1.5, height : 78/1.5,  images : "images/cactus_3.png" },
+  { width : 48/1.5, height : 100/1.5, image : "images/cactus_1.png" },
+  { width : 98/1.5, height : 100/1.5, image : "images/cactus_2.png" },
+  { width : 68/1.5, height : 70/1.5,  image : "images/cactus_3.png" },
 ];
 
 //Objects
-let player          = null;
-let ground          = null;
-let cactiController = null;
+let player = null;
+let ground = null;
+let cacti  = null;
 
 let scaleRatio      = null;
 let previousTime    = null;
@@ -46,16 +46,17 @@ function createSprites() {
  
   ground = new Ground(ctx, groundWidthInGame, groundHeightInGame, GROUND_AND_CACTUS_SPEED, scaleRatio);
 
-  const cactiImages = CACTI_CONFIG.map(cactus => {
+  const cactiImages = CACTI_CONFIG.map( cactus => {
     const image = new Image();
     image.src = cactus.image;
     return {
-      image : image,
+      image  : image,
       width  : cactus.width  * scaleRatio,
       height : cactus.height * scaleRatio,
     }
   });
-  cactiController = new Cacti(ctx, cactiImages, scaleRatio, GROUND_AND_CACTUS_SPEED);
+  
+  cacti = new Cacti(ctx, cactiImages, scaleRatio, GROUND_AND_CACTUS_SPEED);
   
 }
 
@@ -98,12 +99,12 @@ function gameLoop(currentTime) {
 
   //update game objects
   ground.update(gameSpeed, frameTimeDelta);
-  cactiController.update(gameSpeed, frameTimeDelta);
+  cacti.update(gameSpeed, frameTimeDelta);
   player.update(gameSpeed, frameTimeDelta);
   
   //draw game objects
   player.draw();
-  cactiController.draw();
+  cacti.draw();
   ground.draw();
   
   requestAnimationFrame(gameLoop);
