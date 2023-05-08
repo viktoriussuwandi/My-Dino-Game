@@ -1,4 +1,4 @@
-export default class Player{
+export default class Dino{
   
   WALK_ANIMATION_TIMER = 100;
   walkAnimationTimer   = this.WALK_ANIMATION_TIMER;
