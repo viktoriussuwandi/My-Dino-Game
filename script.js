@@ -1,6 +1,6 @@
-import Player from "./controller/player.js"
-import Ground from "./controller/ground.js"
-import Cacti  from "./controller/cacti.js"
+import Player from "./controller/player.js";
+import Ground from "./controller/ground.js";
+import Cacti  from "./controller/cacti.js";
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -18,17 +18,19 @@ const GROUND_WIDTH    = 2400;
 const GROUND_HEIGHT   = 24;
 const GROUND_AND_CACTUS_SPEED = 0.5;
 const CACTI_CONFIG = [
-  { width:48/1.5, height:100/1.5, images:"images/cactus_1.png" },
-  { width:98/1.5, height:100/1.5, images:"images/cactus_2.png" },
-  { width:68/1.5, height:78/1.5, images:"images/cactus_3.png" },
+  { width : 48/1.5, height : 100/1.5, images : "images/cactus_1.png" },
+  { width : 98/1.5, height : 100/1.5, images : "images/cactus_2.png" },
+  { width : 68/1.5, height : 78/1.5,  images : "images/cactus_3.png" },
 ];
 
 //Objects
-let player        = null;
-let ground        = null;
-let scaleRatio    = null;
-let previousTime  = null;
-let gameSpeed     = GAME_SPEED_START;
+let player          = null;
+let ground          = null;
+let cactiController = null;
+
+let scaleRatio      = null;
+let previousTime    = null;
+let gameSpeed       = GAME_SPEED_START;
 
 
 function createSprites() {
@@ -41,10 +43,19 @@ function createSprites() {
   const groundHeightInGame = GROUND_HEIGHT * scaleRatio;
   
   player = new Player(ctx,playerWidthInGame,playerHeightInGame,minJumpHeightInGame,maxJumpHeightInGame,scaleRatio);
-  
-  ground = new Ground(
-    ctx, groundWidthInGame, groundHeightInGame, GROUND_AND_CACTUS_SPEED, scaleRatio
-  );
+ 
+  ground = new Ground(ctx, groundWidthInGame, groundHeightInGame, GROUND_AND_CACTUS_SPEED, scaleRatio);
+
+  const cactiImages = CACTI_CONFIG.map(cactus => {
+    const image = new Image();
+    image.src = cactus.image;
+    return {
+      image : image,
+      width  : cactus.width  * scaleRatio,
+      height : cactus.height * scaleRatio,
+    }
+  });
+  cactiController = new Cacti(ctx, cactiImages, scaleRatio, GROUND_AND_CACTUS_SPEED);
   
 }
 
@@ -87,11 +98,13 @@ function gameLoop(currentTime) {
 
   //update game objects
   ground.update(gameSpeed, frameTimeDelta);
+  cactiController.update(gameSpeed, frameTimeDelta);
   player.update(gameSpeed, frameTimeDelta);
   
   //draw game objects
-  player.draw()
-  ground.draw()
+  player.draw();
+  cactiController.draw();
+  ground.draw();
   
   requestAnimationFrame(gameLoop);
   
