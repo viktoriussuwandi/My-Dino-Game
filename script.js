@@ -33,6 +33,8 @@ let previousTime = null;
 let gameSpeed    = GAME_SPEED_START;
 let gameOver     = false;  
 let hasAddedEventListenersForRestart = false;
+let waitingToStart = true;
+
 
 function createSprites() {
   const playerWidthInGame   = PLAYER_WIDTH * scaleRatio;
@@ -82,11 +84,23 @@ function getScaleRatio() {
 }
 
 function reset() {
+  
   hasAddedEventListenersForRestart = false;
   gameOver = false;
+  waitingToStart = false;
   ground.reset();
   cacti.reset();
   gameSpeed = GAME_SPEED_START;
+
+}
+
+function showStartGameText() {
+  const fontSize = 30 * scaleRatio;
+  ctx.font = `${fontSize}px Verdana`;
+  ctx.fillStyle = "grey";
+  const x = canvas.width / 4.5;
+  const y = canvas.height / 2;
+  ctx.fillText("Press Space or Touch screen to Start", x, y);
 }
 
 function clearScreen() {
@@ -129,7 +143,7 @@ function gameLoop(currentTime) {
   previousTime = currentTime
   clearScreen();
   
-  if( !gameOver ) {
+  if( !gameOver && !waitingToStart ) {
     
     //update game objects
     ground.update(gameSpeed, frameTimeDelta);
@@ -151,9 +165,16 @@ function gameLoop(currentTime) {
   if ( gameOver ) {
     showGameOver();
   }
+
+  if (waitingToStart) {
+    showStartGameText();
+  }
   
   requestAnimationFrame(gameLoop);
   
 }
 
 requestAnimationFrame(gameLoop);
+
+window.addEventListener("keyup", reset, { once: true });
+window.addEventListener("touchstart", reset, { once: true });
