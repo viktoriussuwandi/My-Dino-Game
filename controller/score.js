@@ -10,24 +10,22 @@ export default class Score {
     
   }
 
-  update(frameTimeDelta) {
-    this.score += frameTimeDelta * 0.01;
-  }
-  
+  update(frameTimeDelta) { this.score += frameTimeDelta * 0.01; }
   reset() { this.score = 0; }
 
   setHighScore() {
     const highScore = Number(localStorage.getItem(this.HIGHT_SCORE_KEY));
-    if ( this.score > highScore ) { 
-      localStorage.getItem(this.HIGHT_SCORE_KEY, Math.floor(this.score) );
+    
+    if ( this.score > highScore ) {
+      localStorage.setItem(this.HIGHT_SCORE_KEY, Math.floor(this.score) );
     }
     
   }
 
   draw() {
     const highScore = Number(localStorage.getItem(this.HIGHT_SCORE_KEY));
-    const y = 20 * this.scaleRatio;
     
+    const y = 20 * this.scaleRatio;
     const fontSize = 20 * this.scaleRatio;
     this.ctx.font = `${fontSize}px serif`;
     this.ctx.fillStyle = "#525250";
