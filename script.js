@@ -74,9 +74,8 @@ function setScreen() {
 }
 
 setScreen();
-window.addEventListener('resize', () => {
-  setTimeout(setScreen,500)
-});
+window.addEventListener('resize', () => { setTimeout(setScreen,500) });
+
 if(screen.orientation){ screen.orientation.addEventListener("change",setScreen); }
 
 function getScaleRatio() {
