@@ -175,13 +175,8 @@ function gameLoop(currentTime) {
   dino.draw();
   score.draw();
 
-  if ( gameOver ) {
-    showGameOver();
-  }
-
-  if (waitingToStart) {
-    showStartGameText();
-  }
+  if ( gameOver )     { showGameOver(); }
+  if (waitingToStart) { showStartGameText(); }
   
   requestAnimationFrame(gameLoop);
   
