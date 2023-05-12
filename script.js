@@ -9,14 +9,14 @@ const ctx = canvas.getContext("2d");
 const GAME_SPEED_START     = 0.75
 const GAME_SPEED_INCREMENT = 0.000001;
 
-const GAME_WIDTH      = 800;
-const GAME_HEIGHT     = 200;
-const DINO_WIDTH    = 88/1.5;
-const DINO_HEIGHT   = 94/1.5;
-const MAX_JUMP_HEIGHT = GAME_HEIGHT;
-const MIN_JUMP_HEIGHT = 150;
-const GROUND_WIDTH    = 2400;
-const GROUND_HEIGHT   = 24;
+const GAME_WIDTH        = 800;
+const GAME_HEIGHT       = 200;
+const DINO_WIDTH        = 88/1.5;
+const DINO_HEIGHT       = 94/1.5;
+const MAX_JUMP_HEIGHT   = GAME_HEIGHT;
+const MIN_JUMP_HEIGHT   = 150;
+const GROUND_WIDTH      = 2400;
+const GROUND_HEIGHT     = 24;
 const GROUND_AND_CACTUS_SPEED = 0.5;
 const CACTI_CONFIG = [
   { width : 48/1.5, height : 100/1.5, image : "images/cactus_1.png" },
