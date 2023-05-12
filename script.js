@@ -13,7 +13,9 @@ const GAME_WIDTH        = 800;
 const GAME_HEIGHT       = 200;
 const DINO_WIDTH        = 88/1.5;
 const DINO_HEIGHT       = 94/1.5;
+
 const MAX_JUMP_HEIGHT   = GAME_HEIGHT;
+
 const MIN_JUMP_HEIGHT   = 150;
 const GROUND_WIDTH      = 2400;
 const GROUND_HEIGHT     = 24;
