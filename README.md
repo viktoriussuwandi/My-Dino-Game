@@ -1,5 +1,5 @@
 ## My Survival Dinosaur Game
-#### This is part of my game development leadning
+#### This is part of my game development learning
 #### This project running on : [https://replit.com/@ViktoriusSuwand/My-Dino-Game](https://replit.com/@ViktoriusSuwand/My-Dino-Game)
 
 #### Documentation can be found on : [https://github.com/viktoriussuwandi/My-Dino-Game](https://github.com/viktoriussuwandi/My-Dino-Game)

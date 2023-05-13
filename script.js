@@ -78,7 +78,9 @@ function setScreen() {
 setScreen();
 window.addEventListener('resize', () => { setTimeout(setScreen,500) });
 
-if(screen.orientation){ screen.orientation.addEventListener("change",setScreen); }
+if(screen.orientation){ 
+  screen.orientation.addEventListener("change",setScreen); 
+}
 
 function getScaleRatio() {
   const screenHeight = Math.min(window.innerHeight,document.documentElement.clientHeight);
@@ -177,6 +179,7 @@ function gameLoop(currentTime) {
   score.draw();
 
   if ( gameOver )     { showGameOver(); }
+  
   if (waitingToStart) { showStartGameText(); }
   
   requestAnimationFrame(gameLoop);
